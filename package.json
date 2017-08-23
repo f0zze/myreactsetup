@@ -1,0 +1,17 @@
+{
+  "name": "my_react_starter_kit",
+  "version": "1.0.0",
+  "description": "Simple Starter kit [webpack,react,react-router,recompose,lodash,emotion]",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "react",
+    "react-router",
+    "recompose",
+    "emotion"
+  ],
+  "author": "Aigars Beinarovics",
+  "license": "ISC"
+}
