@@ -1,0 +1,7 @@
+package called yargs
+
+# calling webpack --env.prod it will be passed to module.exports = (env) => { //as env.prod == true
+
+# devtools:source-map will generate bundle.js.map but not be shipped to browser wile you dont open open devtools
+
+//[eslint[0]] - --quite means we wanna show only errors not warnings
