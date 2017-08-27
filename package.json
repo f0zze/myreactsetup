@@ -4,7 +4,7 @@
   "description": "Simple Starter kit [webpack,react,react-router,recompose,lodash,emotion]",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint **/*.{js,jsx} --quiet",//[eslint[0]]
+    "lint": "eslint **/*.{js,jsx} --quiet",
     "debug": "node-nightly --inspect --debug-brk node_modules/.bin/webpack --env.debug",
     "debug:dev": "npm run debug -- --env.dev",
     "debug:prod": "npm run debug -- --env.prod",
@@ -23,16 +23,23 @@
   "author": "Aigars Beinarovics",
   "license": "ISC",
   "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "webpack": "^3.5.5"
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "3.19.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^11.3.2",
     "eslint-config-prettier": "^2.3.0",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-react": "^7.3.0",
     "prettier": "^1.5.3",
