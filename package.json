@@ -9,7 +9,7 @@
     "debug:dev": "npm run debug -- --env.dev",
     "debug:prod": "npm run debug -- --env.prod",
     "prebuild": "rimraf dist",
-    "dev": "webpack-dev-server --env.prod",
+    "dev": "webpack-dev-server --env.dev --hot",
     "build": "webpack -p --env.prod",
     "build:dev": "webpack --env.dev",
     "test": "test"

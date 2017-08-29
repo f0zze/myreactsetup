@@ -1,3 +1,6 @@
 webpack:
 babel:
 libs:
+how:
+  treeshake: 'works only with es6 modules,if using babel disable compilation from es6 ->
+              commonjs webpack will write comments what should be removed and uglifyjs will detect this'
