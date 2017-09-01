@@ -5,10 +5,14 @@
       "env",
       {
         "targets": {
-          "browsers": "last 2 versions"
+          "browsers": ["last 2 versions","ie >= 9"]
         },
         "modules": false
       }
     ]
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "transform-class-properties"
   ]
 }

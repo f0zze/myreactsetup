@@ -5,7 +5,8 @@
     "prettier/react"
   ],
   "plugins": [
-    "prettier"
+    "prettier",
+    "class-property"
   ],
   "parserOptions": {
     "ecmaVersion": 2016,
@@ -20,6 +21,7 @@
     "node": true
   },
   "rules": {
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "class-property/rule-name": 2
   }
 }
