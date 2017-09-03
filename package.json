@@ -23,8 +23,11 @@
   "author": "Aigars Beinarovics",
   "license": "ISC",
   "dependencies": {
+    "emotion": "^7.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "recompose": "^0.25.0",
+    "theming": "^1.1.0",
     "webpack": "^3.5.5"
   },
   "devDependencies": {
