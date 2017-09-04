@@ -1,4 +1,4 @@
-import { injectGlobal } from 'emotion'
+import { injectGlobal } from 'emotion';
 
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`

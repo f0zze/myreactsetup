@@ -1,6 +1,6 @@
-const {resolve} = require('path');
+const { resolve } = require('path');
 
-module.exports = (env) => {
+module.exports = env => {
     return {
         context: resolve('src'),
         entry: './index.jsx',
@@ -21,10 +21,16 @@ module.exports = (env) => {
         module: {
             rules: [
                 {
+                    enforce: 'pre',
+                    test: /\.jsx?$/,
+                    loader: 'eslint-loader',
+                    exclude: /node_modules/
+                },
+                {
                     test: /\.jsx?$/,
                     loader: 'babel-loader'
                 }
             ]
         }
-    }
+    };
 };

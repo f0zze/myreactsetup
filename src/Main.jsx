@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'emotion/react';
-import { ThemeProvider } from "theming";
+import { ThemeProvider } from 'theming';
 import { withState } from 'recompose';
-import { ellipsis } from "./emotion/mixins";
-import { H1, H2 } from "./emotion/typography";
-import Select from "./Select";
-import Ball from "./Ball";
+import { ellipsis } from './emotion/mixins';
+import { H1, H2 } from './emotion/typography';
+import Select from './Select';
+import Ball from './Ball';
 
 const Description = styled(H2)`
     composes: ${ellipsis};
@@ -13,25 +13,28 @@ const Description = styled(H2)`
     display: inline-block;
 `;
 
-const Main = (props) => {
+const Main = props => {
     const Hello = `Home Page`;
     return (
-        <ThemeProvider theme={{primaryColor: props.color}}>
+        <ThemeProvider theme={{ primaryColor: props.color }}>
             <div>
-                <Select value={props.color}
-                        onValueChange={props.setColor}
-                        options={['red', 'violet', 'black', 'green']}
+                <Select
+                    value={props.color}
+                    onValueChange={props.setColor}
+                    options={['red', 'violet', 'black', 'green']}
                 />
-                <H1>{Hello}</H1>
-                <br/>
+                <H1>
+                    {Hello}
+                </H1>
+                <br />
                 <Description color="grey">
                     There sits the only king I mean to bend my knee to: the King in the North!
                 </Description>
-                <br/>
+                <br />
 
-                <Ball speed="2s"/>
-                <Ball speed="4s"/>
-                <Ball speed="3s"/>
+                <Ball speed="2s" />
+                <Ball speed="4s" />
+                <Ball speed="3s" />
             </div>
         </ThemeProvider>
     );
@@ -43,5 +46,3 @@ Main.propTypes = {
 };
 
 export default withState('color', 'setColor', 'violet')(Main);
-
-

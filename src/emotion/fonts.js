@@ -1,4 +1,4 @@
-import { fontFace } from 'emotion'
+import { fontFace } from 'emotion';
 
 // eslint-disable-next-line no-unused-expressions
 fontFace`

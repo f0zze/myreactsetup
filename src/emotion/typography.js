@@ -6,7 +6,6 @@ export const H1 = withTheme(styled.h1`
     color: ${props => props.theme && props.theme.primaryColor};
 `);
 
-
 export const H2 = withTheme(styled.h2`
     font-size: 20px;
     color: ${props => props.theme && props.theme.primaryColor};
