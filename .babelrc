@@ -15,7 +15,7 @@
     ]
   ],
   "plugins": [
-    "emotion",
+    ["emotion", { "extractStatic": true }],
     "transform-class-properties"
   ]
 }

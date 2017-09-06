@@ -1,17 +1,28 @@
-const { resolve } = require('path');
+const {resolve} = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const {getIfUtils, removeEmpty} = require('webpack-config-utils');
 
 module.exports = env => {
+    const {ifProd, ifNotProd} = getIfUtils(env);
+    console.log(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css'));
     return {
         context: resolve('src'),
         entry: './index.jsx',
         output: {
-            path: resolve('dist'),
+            path: resolve('app'),
             filename: 'bundle.js',
-            publicPath: '/dist/'
+            publicPath: '/app/'
         },
         devtool: env.prod ? 'source-map' : 'eval',
         resolve: {
             extensions: ['.js', '.jsx', '.json']
+        },
+        devServer: {
+            historyApiFallback: true,
+            publicPath: '/',
         },
         stats: {
             color: true,
@@ -20,6 +31,13 @@ module.exports = env => {
         },
         module: {
             rules: [
+                {
+                    test: /\.css$/,
+                    loader: ExtractTextPlugin.extract({
+                        fallback: "style-loader",
+                        use: "css-loader"
+                    })
+                },
                 {
                     enforce: 'pre',
                     test: /\.jsx?$/,
@@ -31,6 +49,18 @@ module.exports = env => {
                     loader: 'babel-loader'
                 }
             ]
-        }
+        },
+        plugins: removeEmpty([
+            new ProgressBarPlugin(),
+            new HtmlWebpackPlugin({
+                template: '../public/index.html'
+            }),
+            new ExtractTextPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
+            new webpack.DefinePlugin({
+                'process.env': {
+                    NODE_ENV: ifProd('"production"', '"development"')
+                }
+            }),
+        ])
     };
 };
