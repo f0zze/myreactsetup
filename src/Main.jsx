@@ -6,6 +6,7 @@ import { ellipsis } from './emotion/mixins';
 import { H1, H2 } from './emotion/typography';
 import Select from './Select';
 import Ball from './Ball';
+import Cat from './components/Cat';
 
 const Description = styled(H2)`
     composes: ${ellipsis};
@@ -31,7 +32,7 @@ const Main = props => {
                     There sits the only king I mean to bend my knee to: the King in the North!
                 </Description>
                 <br />
-
+                <Cat />
                 <Ball speed="2s" />
                 <Ball speed="4s" />
                 <Ball speed="3s" />

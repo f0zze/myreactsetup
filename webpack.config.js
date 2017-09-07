@@ -7,22 +7,18 @@ const {getIfUtils, removeEmpty} = require('webpack-config-utils');
 
 module.exports = env => {
     const {ifProd, ifNotProd} = getIfUtils(env);
-    console.log(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css'));
+
     return {
         context: resolve('src'),
         entry: './index.jsx',
         output: {
             path: resolve('app'),
             filename: 'bundle.js',
-            publicPath: '/app/'
+            publicPath: '/'
         },
-        devtool: env.prod ? 'source-map' : 'eval',
+        devtool: ifProd('source-map', 'eval'),
         resolve: {
             extensions: ['.js', '.jsx', '.json']
-        },
-        devServer: {
-            historyApiFallback: true,
-            publicPath: '/',
         },
         stats: {
             color: true,
@@ -32,6 +28,12 @@ module.exports = env => {
         module: {
             rules: [
                 {
+                    enforce: 'pre',
+                    test: /\.jsx?$/,
+                    loader: 'eslint-loader',
+                    exclude: /node_modules/
+                },
+                {
                     test: /\.css$/,
                     loader: ExtractTextPlugin.extract({
                         fallback: "style-loader",
@@ -39,21 +41,26 @@ module.exports = env => {
                     })
                 },
                 {
-                    enforce: 'pre',
-                    test: /\.jsx?$/,
-                    loader: 'eslint-loader',
-                    exclude: /node_modules/
-                },
-                {
                     test: /\.jsx?$/,
                     loader: 'babel-loader'
+                },
+                {
+                    test: /\.(png|jpg|gif)$/,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 8192
+                            }
+                        }
+                    ]
                 }
             ]
         },
         plugins: removeEmpty([
             new ProgressBarPlugin(),
             new HtmlWebpackPlugin({
-                template: '../public/index.html'
+                template: __dirname + '/public/index.html',
             }),
             new ExtractTextPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
             new webpack.DefinePlugin({
