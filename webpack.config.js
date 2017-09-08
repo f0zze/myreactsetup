@@ -10,10 +10,13 @@ module.exports = env => {
 
     return {
         context: resolve('src'),
-        entry: './index.jsx',
+        entry: {
+            vendor: ['react-dom', 'react', 'emotion'],
+            app: './index.jsx'
+        },
         output: {
             path: resolve('app'),
-            filename: 'bundle.js',
+            filename: 'bundle.[name].[chunkhash].js',
             publicPath: '/'
         },
         devtool: ifProd('source-map', 'eval'),
@@ -63,6 +66,9 @@ module.exports = env => {
                 template: __dirname + '/public/index.html',
             }),
             new ExtractTextPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor'
+            }),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: ifProd('"production"', '"development"')
