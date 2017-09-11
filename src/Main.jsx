@@ -1,49 +1,28 @@
 import React from 'react';
-import styled from 'emotion/react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'theming';
-import { withState } from 'recompose';
-import { ellipsis } from './emotion/mixins';
-import { H1, H2 } from './emotion/typography';
-import Select from './Select';
-import Ball from './Ball';
-import Cat from './components/Cat';
 
-const Description = styled(H2)`
-    composes: ${ellipsis};
-    width: 500px;
-    display: inline-block;
-`;
+import Home from './views/Home';
+import List from './views/List';
+import ItemDetails from './views/ItemDetails';
 
-const Main = props => {
-    const Hello = `Home Page`;
-    return (
-        <ThemeProvider theme={{ primaryColor: props.color }}>
-            <div>
-                <Select
-                    value={props.color}
-                    onValueChange={props.setColor}
-                    options={['red', 'violet', 'black', 'green']}
-                />
-                <H1>
-                    {Hello}
-                </H1>
-                <br />
-                <Description color="grey">
-                    There sits the only king I mean to bend my knee to: the King in the North!
-                </Description>
-                <br />
-                <Cat />
-                <Ball speed="2s" />
-                <Ball speed="4s" />
-                <Ball speed="3s" />
-            </div>
-        </ThemeProvider>
-    );
-};
+class Main extends React.Component {
+    getRouter = () =>
+        <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/list" component={List} />
+            <Route path="/list/:id" component={ItemDetails} />
+        </Switch>;
 
-Main.propTypes = {
-    color: React.PropTypes.string.isRequired,
-    setColor: React.PropTypes.func.isRequired
-};
+    render() {
+        return (
+            <ThemeProvider theme={{ primaryColor: 'red' }}>
+                <BrowserRouter>
+                    {this.getRouter()}
+                </BrowserRouter>
+            </ThemeProvider>
+        );
+    }
+}
 
-export default withState('color', 'setColor', 'violet')(Main);
+export default Main;

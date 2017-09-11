@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const InlienManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 
 module.exports = env => {
@@ -13,12 +13,15 @@ module.exports = env => {
         context: resolve('src'),
         entry: {
             app: './index.jsx',
-            vendor: ['react-dom', 'react', 'emotion', 'recompose', 'lodash']
+            vendor: ['react-dom', 'react', 'emotion', 'recompose', 'lodash', 'react-router-dom']
         },
         output: {
             path: resolve('app'),
             filename: ifProd('bundle.[name].[chunkhash].js', 'bundle.[name].js'),
             publicPath: '/'
+        },
+        devServer: {
+            historyApiFallback: true
         },
         devtool: ifProd('source-map', 'eval'),
         resolve: {
@@ -39,7 +42,7 @@ module.exports = env => {
                 },
                 {
                     test: /\.css$/,
-                    exclude: /node_modules/,
+                    include: [/src/, /flexboxgrid/],
                     loader: ExtractTextPlugin.extract({
                         fallback: 'style-loader',
                         use: 'css-loader'
@@ -71,7 +74,7 @@ module.exports = env => {
         },
         plugins: removeEmpty([
             new ProgressBarPlugin(),
-            ifProd(new InlienManifestWebpackPlugin()),
+            ifProd(new InlineManifestWebpackPlugin()),
             ifProd(
                 new webpack.optimize.CommonsChunkPlugin({
                     names: ['vendor', 'manifest']
