@@ -6,7 +6,7 @@ const Cat = () => {
     return (
         <div>
             hello
-            <img src={img} alt=""/>
+            <img src={img} alt="" />
         </div>
     );
 };

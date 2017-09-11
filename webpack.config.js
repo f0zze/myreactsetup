@@ -1,19 +1,19 @@
-const {resolve} = require('path');
+const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const InlienManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
-const {getIfUtils, removeEmpty} = require('webpack-config-utils');
+const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 
 module.exports = env => {
-    const {ifProd, ifNotProd} = getIfUtils(env);
+    const { ifProd, ifNotProd } = getIfUtils(env);
 
     return {
         context: resolve('src'),
         entry: {
             app: './index.jsx',
-            vendor: ['react-dom', 'react', 'emotion', 'recompose', 'lodash'],
+            vendor: ['react-dom', 'react', 'emotion', 'recompose', 'lodash']
         },
         output: {
             path: resolve('app'),
@@ -41,9 +41,14 @@ module.exports = env => {
                     test: /\.css$/,
                     exclude: /node_modules/,
                     loader: ExtractTextPlugin.extract({
-                        fallback: "style-loader",
-                        use: "css-loader"
+                        fallback: 'style-loader',
+                        use: 'css-loader'
                     })
+                },
+                {
+                    test: /\.jsx?$/,
+                    exclude: /node_modules/,
+                    loader: 'babel-loader'
                 },
                 {
                     test: /\.jsx?$/,
@@ -67,18 +72,20 @@ module.exports = env => {
         plugins: removeEmpty([
             new ProgressBarPlugin(),
             ifProd(new InlienManifestWebpackPlugin()),
-            ifProd(new webpack.optimize.CommonsChunkPlugin({
-                names: ['vendor', 'manifest'],
-            })),
+            ifProd(
+                new webpack.optimize.CommonsChunkPlugin({
+                    names: ['vendor', 'manifest']
+                })
+            ),
             new HtmlWebpackPlugin({
-                template: __dirname + '/src/index.html',
+                template: __dirname + '/src/index.html'
             }),
             new ExtractTextPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: ifProd('"production"', '"development"')
                 }
-            }),
+            })
         ])
     };
 };
