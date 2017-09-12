@@ -7,7 +7,7 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 
 module.exports = env => {
-    const { ifProd, ifNotProd } = getIfUtils(env);
+    const { ifProd } = getIfUtils(env);
 
     return {
         context: resolve('src'),
