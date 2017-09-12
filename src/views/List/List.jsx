@@ -1,25 +1,54 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import { Row, Col } from 'react-flexbox-grid';
-import range from 'lodash/range';
+import {observable, computed} from 'mobx';
+import {observer} from 'mobx-react';
+import {Row, Col} from 'react-flexbox-grid';
 import ListItem from './ListItem';
-
-const listItems = range(5);
 
 @observer
 class List extends React.Component {
+
+    @computed
+    get itemLen() {
+        return this.items.length;
+    }
+
+    @observable items = [];
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.items.push(this.input.value);
+    };
+
     render() {
         return (
-            <Row>
-                {listItems.map(item =>
-                    <Col md={3}>
-                        <ListItem>
-                            {`Item ${item}`}
-                        </ListItem>
+            <div>
+                <Row>
+                    <Col md={6}>
+                        <form onSubmit={this.handleSubmit}>
+                            <input
+                                ref={input => {
+                                    this.input = input;
+                                }}
+                                placeholder="Type something..."
+                            />
+                        </form>
                     </Col>
-                )}
-            </Row>
+                    <Col>
+                        {this.itemLen}
+                    </Col>
+                </Row>
+                <Row>
+                    {this.items.map(item =>
+                        <Col md={3}>
+                            <ListItem>
+                                {item}
+                            </ListItem>
+                        </Col>
+                    )}
+                </Row>
+            </div>
         );
     }
 }
+
 export default List;

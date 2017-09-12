@@ -1,16 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import styled from 'emotion/react';
 
-const ListItem = props => {
-    return (
-        <div>
-            {props.children}
-        </div>
-    );
-};
-
-ListItem.propTypes = {
-    children: PropTypes.string.isRequired
-};
-
-export default ListItem;
+export default styled('div')`
+    padding:10px;
+    box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.2);
+`;

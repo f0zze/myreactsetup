@@ -1,4 +1,5 @@
 import React from 'react';
+import DevTools from 'mobx-react-devtools';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'theming';
 
@@ -14,13 +15,20 @@ class Main extends React.Component {
             <Route path="/list/:id" component={ItemDetails} />
         </Switch>;
 
+    getMobxDevTools = () => {
+        return process.env.NODE_ENV === 'development' ? <DevTools /> : null;
+    };
+
     render() {
         return (
-            <ThemeProvider theme={{ primaryColor: 'red' }}>
-                <BrowserRouter>
-                    {this.getRouter()}
-                </BrowserRouter>
-            </ThemeProvider>
+            <div>
+                {this.getMobxDevTools()}
+                <ThemeProvider theme={{ primaryColor: 'red' }}>
+                    <BrowserRouter>
+                        {this.getRouter()}
+                    </BrowserRouter>
+                </ThemeProvider>
+            </div>
         );
     }
 }
